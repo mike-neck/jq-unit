@@ -52,7 +52,7 @@ def When(operation):
   try
     { name: $input.name, subject: ($input.input | operation) }
   catch
-    { name: $input.name, error: "\(.)" }
+    { name: $input.name, error: "\($input.input) cannot be applied to the operation on test \($input.name)." }
 ;
 
 # argument: filter(to test: boolean)
@@ -76,7 +76,7 @@ def Then(condition):
 
 # argument: iterator(of: Test)
 # input: N/A
-# output: Test
+# output: "ok" or error
 def all(tests):
   [tests] |
   length as $testSize |
