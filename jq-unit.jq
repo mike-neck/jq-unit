@@ -37,10 +37,16 @@ def test(title):
   {name: "\(title)"}
 ;
 
+# argument: object | array | string | number | boolean | null
+# input: TestTitle
+# output: TestInput
 def Given(input):
   { name: .name, input: input }
 ;
 
+# argument: filter(to subject: object | array | string | number | boolean | null)
+# input: TestInput
+# output: TestSubject
 def When(operation):
   . as $input |
   try
@@ -49,19 +55,15 @@ def When(operation):
     { name: $input.name, error: "\(.)" }
 ;
 
-def Then(condition):
-  satisfies(condition)
-;
-
-# argument: filter(boolean)
+# argument: filter(to test: boolean)
 # input: TestSubject
 # output: Test
-def satisfies(conditionFilter):
+def Then(condition):
   if .error == null then
     {
       name: .name,
       subject: .subject,
-      test: (.subject | conditionFilter)
+      test: (.subject | condition)
     }
   else
     {
@@ -69,6 +71,22 @@ def satisfies(conditionFilter):
       subject: .error,
       test: false
     }
+  end
+;
+
+# argument: iterator(of: Test)
+# input: N/A
+# output: Test
+def all(tests):
+  [tests] |
+  length as $testSize |
+  map(select(.test != true)) |
+  if length == 0
+  then "ok - tests: \($testSize)"
+  else
+    ["test failed", (map( "test: \(.name) [unexpected-value: \(.subject)]" ) | .[]), "count: \(length)/\($testSize)"] |
+    join("\n") |
+    error(.)
   end
 ;
 
