@@ -1,0 +1,18 @@
+name: test
+
+on: [push]
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+        name: checkout
+
+      - name: run test 1
+        runs: jq 'import "examples/1-simple-script" as test; test::runAll'
+
+      - name: run test 2
+        runs: jq 'import "examples/2-test-against-function" as test; test::runAll'
