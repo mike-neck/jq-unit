@@ -15,7 +15,7 @@ def upperCaseOfFooIsFOO:
 ;
 
 def runAll:
-  jqunit::all(
+  jqunit::allSpecs(
       upperCaseOfFooIsNotBar,
       upperCaseOfFooIsFOO
   )

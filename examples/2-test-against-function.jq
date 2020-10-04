@@ -49,7 +49,7 @@ def numberWithoutMultiplesOf3And5BecomesItself:
 ;
 
 def runAll:
-  jqunit::all(
+  jqunit::allSpecs(
       multiplesOf15BecomeFizzBuzz,
       multiplesOf5WithoutMultiplesOf3BecomeBuzz,
       multiplesOf3WithoutMultiplesOf5BecomeFizz,

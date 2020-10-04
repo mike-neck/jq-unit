@@ -77,7 +77,7 @@ def Then(condition):
 # argument: iterator(of: Test)
 # input: N/A
 # output: "ok" or error
-def all(tests):
+def allSpecs(tests):
   [tests] |
   length as $testSize |
   map(select(.test != true)) |
